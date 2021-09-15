@@ -8,13 +8,14 @@
         import Antd from 'ant-design-vue'
         import 'ant-design-vue/dist/antd.css'
         import Canna from 'canna-ui-vue'
-        import 'canna-ui-vue/dist/canna.css';
+        import 'canna-ui-vue/dist/style.css'
 
         const app = createApp(App)
         app.use(router)
         app.use(Antd)
         app.use(Canna)
         app.mount('#app')
+
 
     App.vue
         <ingeek-layout :menuList="menuList" logoSmall="/logo-small.png" logoDark="/logo-dark.png">
