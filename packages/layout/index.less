@@ -1,0 +1,59 @@
+@import './header-nav/index.less';
+@import './layout-tab/index.less';
+::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 5px; /*高宽分别对应横竖滚动条的尺寸*/
+    height: 7px;
+  }
+  ::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #e5e5e5;
+  }
+  ::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    // box-shadow   : inset 0 0 5px rgba(0, 0, 0, 0.2); // 内阴影
+    border-radius: 10px;
+    background: #fff;
+  }
+  body {
+    overflow: hidden;
+  }
+  .ingeek-layout {
+    height: 100vh;
+    .logo {
+      width: 100%;
+      padding: 7px;
+      & > .logo-dark {
+        display: block;
+        width: 100%;
+      }
+      & > .logo-small {
+        width: 45px;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+    .ingeek-layout-header {
+      background: #fff;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      .icon {
+        padding-left: 10px;
+        padding-right: 10px;
+        cursor: pointer;
+      }
+    }
+  
+    .ingeek-layout-view {
+      margin: 3px 10px 0 10px;
+      background-color: #fff;
+      height: calc(100vh - 100px);
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 10px 10px 0 10px;
+      border-radius: 10px 10px 0 0;
+    }
+}

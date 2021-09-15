@@ -1,0 +1,31 @@
+.ingeek-layout-tab {
+    padding: 5px;
+    display: flex;
+    position: relative;
+    .ant-tabs-bar {
+      margin: 0 !important;
+    }
+    .layout-tab-box {
+      // 重写tab样式
+      .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-nav-container {
+        height: 30px !important;
+      }
+      .ant-tabs-tab {
+        height: 30px !important;
+        line-height: 28px !important;
+      }
+    }
+  
+    .tab-action {
+      width: 35px;
+      background-color: #fff;
+      position: absolute;
+      right: 10px;
+      .tab-action-icon {
+        width: 100%;
+        padding: 5px 0;
+        text-align: center;
+        cursor: pointer;
+      }
+    }
+}

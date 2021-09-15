@@ -1,0 +1,42 @@
+{
+  "name": "canna-ui-vue",
+  "version": "0.1.1",
+  "scripts": {
+    "dev": "vite",
+    "build": "rimraf dist && vite build",
+    "serve": "vite preview",
+    "prepublishOnly": "npm run build"
+  },
+  "main": "dist/canna.es.js",
+  "module": "dist/canna.es.js",
+  "unpkg": "browser/canna.umd.js",
+  "browser": "browser/canna.umd.min.js",
+  "types": "",
+  "files": [
+    "dist"
+  ],
+  "author": "gaojunfeng",
+  "license": "MIT",
+  "keywords": [
+    "ui"
+  ],
+  "homepage": "https://github.com/duanshanghanqing/canna-ui-vue",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/duanshanghanqing/canna-ui-vue.git"
+  },
+  "dependencies": {
+    "ant-design-vue": "^2.2.7",
+    "vue": "^3.2.6",
+    "vue-router": "^4.0.11"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.6.1",
+    "@vue/compiler-sfc": "^3.2.6",
+    "less": "^4.1.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.3.2",
+    "vite": "^2.5.4",
+    "vue-tsc": "^0.2.2"
+  }
+}
