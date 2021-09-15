@@ -81,19 +81,17 @@ export default defineComponent({
           return item.path;
         }
       }
-      // if (menuList.length > 0) {
-      //   return menuList[0].path;
-      // }
       return "";
     };
     const tabsChange = (puth: any) => {
       context.emit("switch", puth, false);
     };
     onMounted(() => {
-      const puth = isHighlight();
+      let puth = isHighlight();
       // 用户访问 "" 根路径，默认一个重定向打开
       if (puth === "") {
           if (menuList.length > 0) {
+            activeKey.value = menuList[0].path;
             tabsChange(menuList[0].path);
           }
       } else {

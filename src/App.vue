@@ -17,8 +17,6 @@
       </keep-alive>
     </router-view>
   </ingeek-layout>
-  <!-- <div>app</div>
-  <ingeek-button /> -->
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
