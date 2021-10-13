@@ -29,7 +29,7 @@
 <script lang="ts">
 import { useRouter } from "vue-router";
 import { defineComponent, onMounted, ref, watch } from "vue";
-import { menuOpenWidth, menuCloseWidth } from "../const";
+import { getBaseUrl } from '../util';
 
 export default defineComponent({
   name: "header-nav",
@@ -44,6 +44,12 @@ export default defineComponent({
         return [];
       },
     },
+    width: {
+      type: Number,
+    },
+    collapsedWidth: {
+      type: Number,
+    }
   },
   emits: ["switch"],
   setup(props: any, context) {
@@ -56,7 +62,7 @@ export default defineComponent({
 
     const setWidth = (collapsed: boolean) => {
       // 菜单 + 左icon + 右区域
-      const siderWith = collapsed ? menuCloseWidth : menuOpenWidth;
+      const siderWith = collapsed ? props.collapsedWidth : props.width;
       const iconWidth = 68;
       width.value = siderWith + iconWidth + sysRef.value.offsetWidth;
     };
@@ -68,35 +74,43 @@ export default defineComponent({
     watch(
       () => props.collapsed,
       (newValue) => {
-        console.log(newValue);
+        // console.log(newValue);
         setWidth(newValue);
       }
     );
 
     // 头部选中
     const activeKey = ref("");
-    const isHighlight = () => {
-      for (let item of menuList) {
-        if (router.options.history.location.includes(item.path)) {
-          return item.path;
-        }
-      }
-      return "";
-    };
-    const tabsChange = (puth: any) => {
-      context.emit("switch", puth, false);
+    const tabsChange = (puth: any, isClick = true) => { // 不是点击调用
+      context.emit("switch", puth, isClick);
     };
     onMounted(() => {
-      let puth = isHighlight();
-      // 用户访问 "" 根路径，默认一个重定向打开
-      if (puth === "") {
-          if (menuList.length > 0) {
-            activeKey.value = menuList[0].path;
-            tabsChange(menuList[0].path);
+      if (router.options.history.location === '/') {
+        // if (menuList.length > 0) {
+        //   activeKey.value = menuList[0].path;
+        //   tabsChange(menuList[0].path, false);
+        // }
+        // 找到包含改 BaseUrl 的菜单显示
+        for (let item of menuList) {
+          if (item.path.includes(getBaseUrl(window.location.pathname))) {
+              activeKey.value = item.path;
+              tabsChange(item.path, false);
+              break;
           }
-      } else {
-        activeKey.value = puth;
-        context.emit("switch", puth, true);
+        }
+        //  console.log(window.location.pathname);
+        return;
+      }
+
+    
+
+      // 设置默认tab高亮
+      for (let item of menuList) {
+        if (window.location.pathname.includes(item.path)) { // 导航菜单地址
+          activeKey.value = item.path;
+          // context.emit("switch", item.path, false);
+          tabsChange(item.path, false);
+        }
       }
     });
 

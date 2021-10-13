@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/home/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -71,8 +71,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory('/web/'),
-  // history: createWebHistory('/web/'),
+  history: createWebHistory('/canna-web/'),
   routes
 })
 

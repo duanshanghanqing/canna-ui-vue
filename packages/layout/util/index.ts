@@ -23,3 +23,14 @@ export const storageRemove = (key: string) => {
 export const storageClear = () => {
     sessionStorage.clear();
 }
+
+export const getBaseUrl = (path: string) => {
+    return path.substring(0, path.substr(1).indexOf('/') + 1);
+}
+// console.log(getBaseUrl(window.location.pathname));
+// console.log(getBaseUrl('/outline-web/'));
+
+export const getPathUrl = (path: string) => {
+    return path.substr(path.substr(1).indexOf('/') + 1);
+}
+// console.log(getPathUrl(window.location.pathname));

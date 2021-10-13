@@ -1,6 +1,6 @@
 <template>
   <a-layout class="ingeek-layout">
-    <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
+    <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible :width="width" :collapsedWidth="collapsedWidth">
       <div class="logo">
         <img :src="logoSmall" class="logo-small" v-if="collapsed" />
         <img :src="logoDark" class="logo-dark" v-else />
@@ -40,6 +40,8 @@
           :collapsed="collapsed"
           :menuList="menuList"
           @switch="navSwitch"
+          :width="width" 
+          :collapsedWidth="collapsedWidth"
         >
           <!-- 左侧icon -->
           <template v-slot:left>
@@ -64,7 +66,7 @@
 
       <!-- 页面打开tab -->
       <layout-tab
-        :width="width"
+        :width="winWidth"
         :menuList="menuList"
         ref="layoutTabRef"
         @change="layoutTabChange"
@@ -82,8 +84,8 @@ import { useRouter, useRoute } from "vue-router";
 import * as icons from "@ant-design/icons-vue";
 import { defineComponent, ref, watch } from "vue";
 import HeaderNav from "./header-nav/index.vue";
-import { menuOpenWidth, menuCloseWidth } from "./const";
 import layoutTab from "./layout-tab/index.vue";
+import { getBaseUrl, getPathUrl } from './util';
 
 // 根据导航菜单获取左侧菜单
 function getLeftMenuList(path: string, menuList: any[]) {
@@ -136,7 +138,7 @@ function getPathParentItem(path: string, menuList: any[]) {
 }
 
 export default defineComponent({
-  name: "ingeek-layout",
+  name: "canna-layout",
   components: {
     ...icons,
     HeaderNav,
@@ -157,6 +159,14 @@ export default defineComponent({
       type: String,
       default: "",
     },
+    width: {
+      type: Number,
+      default: 250,
+    },
+    collapsedWidth: {
+      type: Number,
+      default: 80,
+    }
   },
   setup(props: any) {
     const router = useRouter();
@@ -166,12 +176,12 @@ export default defineComponent({
       根据切换按钮，计算导航菜单宽度
     */
     const collapsed = ref<boolean>(false);
-    const width = ref<number>(menuOpenWidth);
+    const winWidth = ref<number>(props.width);
     watch(collapsed, (newValue) => {
       if (newValue) {
-        width.value = menuCloseWidth;
+        winWidth.value = props.collapsedWidth;
       } else {
-        width.value = menuOpenWidth;
+        winWidth.value = props.width;
       }
     });
 
@@ -179,7 +189,7 @@ export default defineComponent({
     const leftMenuList = ref([]);
     // 默认选中
     const selectedKeys = ref<string[]>([""]);
-    
+
     watch(
       () => route.path,
       (val) => {
@@ -201,38 +211,37 @@ export default defineComponent({
 
     // 头部导航切换
     let _navPath = "";
-    const navSwitch = (navPath: string, isF5: boolean) => {
+    const navSwitch = (navPath: string, isClick: boolean) => {
       _navPath = navPath;
+      // 点击切换taburl时，且 当前项目url 和 要打开BaseUrl不同，就刷新跳转
+      if (isClick && getBaseUrl(navPath) !== getBaseUrl(window.location.pathname)) {
+         window.location.href = navPath;
+         return;
+      }
 
       // 设置二级左菜单
       const _leftMenuList = getLeftMenuList(navPath, menuList);
       leftMenuList.value = _leftMenuList;
 
-      // 没有二级左菜单
+      // 没有二级左菜单,等于点击tab
       if (_leftMenuList.length === 0) {
-        router.push(navPath);
+        router.push(getPathUrl(navPath));
         layoutTabRef.value.push(navPath, null);
         return;
       }
 
-      // 用户f5刷新场景
-      if (isF5) {
-        const location = router.options.history.location;
-        layoutTabRef.value.push(navPath, getPathItem(location, _leftMenuList));
-      } else {
-        // 切换场景
-        // 有二级左菜单
-        if (_leftMenuList.length > 0) {
-          const item = _leftMenuList[0];
-          // 有子菜单
-          if (Array.isArray(item.children) && item.children.length > 0) {
-            const selectedItem = item.children[0];
-            router.push(selectedItem.path);
-            layoutTabRef.value.push(navPath, selectedItem);
-          } else {
-            router.push(item.puth);
-            layoutTabRef.value.push(navPath, item);
-          }
+      // 切换场景
+      // 有二级左菜单
+      if (_leftMenuList.length > 0) {
+        const item = _leftMenuList[0];
+        // 有子菜单
+        if (Array.isArray(item.children) && item.children.length > 0) {
+          const selectedItem = item.children[0];
+          router.push(selectedItem.path);
+          layoutTabRef.value.push(navPath, selectedItem);
+        } else {
+          router.push(item.puth);
+          layoutTabRef.value.push(navPath , item);
         }
       }
     };
@@ -263,7 +272,7 @@ export default defineComponent({
     return {
       // 切换宽度
       collapsed,
-      width,
+      winWidth,
       // 导航切换
       navSwitch,
 
@@ -290,5 +299,5 @@ export default defineComponent({
 });
 </script>
 <style lang="less">
-@import './index.less';
+@import "./index.less";
 </style>

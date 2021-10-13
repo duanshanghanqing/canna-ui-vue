@@ -8,8 +8,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'packages/index.ts'),
-      name: 'canna',
-      fileName: (format) => `canna.${format}.js`
+      name: 'cannauivue',
+      fileName: (format) => `${format}.js`
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖

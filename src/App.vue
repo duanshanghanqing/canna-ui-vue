@@ -1,8 +1,8 @@
 <template>
-  <ingeek-layout
+  <canna-layout
     :menuList="menuList"
-    logoSmall="/logo-small.png"
-    logoDark="/logo-dark.png"
+    logoSmall="https://cdn.ingeek.com/aladdin/logo-small.png"
+    logoDark="https://cdn.ingeek.com/aladdin/logo-dark.png"
   >
     <template v-slot:right>
       <div style="height: 100%; padding: 0 20px">
@@ -16,7 +16,7 @@
         <component :is="Component" />
       </keep-alive>
     </router-view>
-  </ingeek-layout>
+  </canna-layout>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";

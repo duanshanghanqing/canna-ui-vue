@@ -1,7 +1,7 @@
 const menuList = [
     {
         name: "首页",
-        path: "/home",
+        path: "/canna-web/home",
         icon: "StarOutlined",
         children: [
             {
@@ -30,7 +30,7 @@ const menuList = [
     },
     {
         name: "关于",
-        path: "/about",
+        path: "/canna-web/about",
         icon: "StarOutlined",
         children: [
             {
@@ -64,19 +64,19 @@ const menuList = [
     },
     {
         name: "内容管理",
-        path: "/contentManagement",
+        path: "/canna-web/contentManagement",
         icon: "StarOutlined",
     },
     {
         name: "用户管理",
-        path: "/userManagement",
+        path: "/canna-web/userManagement",
         icon: "StarOutlined",
     },
     {
         name: "统计分析",
-        path: "/statisticalAnalysis",
+        path: "/canna-web/statisticalAnalysis",
         icon: "StarOutlined",
-    },
+    }
 ];
 
 export default menuList;

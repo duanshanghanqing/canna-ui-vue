@@ -4,7 +4,7 @@ import router from './router'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import packages from '../packages'
-// import packages from '../dist/ingeek.es'
+// import packages from '../dist/es'
 // import '../dist/style.css'
 
 const app = createApp(App)

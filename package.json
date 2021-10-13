@@ -1,21 +1,21 @@
 {
   "name": "canna-ui-vue",
-  "version": "0.1.3",
+  "version": "0.1.0",
   "scripts": {
     "dev": "vite",
     "build": "rimraf dist && vite build",
     "serve": "vite preview",
     "prepublishOnly": "npm run build"
   },
-  "main": "dist/canna.es.js",
-  "module": "dist/canna.es.js",
-  "unpkg": "browser/canna.umd.js",
-  "browser": "browser/canna.umd.min.js",
+  "main": "dist/es.js",
+  "module": "dist/es.js",
+  "unpkg": "browser/umd.js",
+  "browser": "browser/umd.js",
   "types": "",
   "files": [
     "dist"
   ],
-  "author": "gaojunfeng",
+  "author": "duanshanghanqing",
   "license": "MIT",
   "keywords": [
     "ui"
